@@ -1,5 +1,3 @@
-
-
 function preload() {
   // put preload code here
 
@@ -26,17 +24,18 @@ function setup() {
   angleMode(DEGREES);
   createCanvas(windowWidth, windowHeight);
 
-  var pallineNumber = random(1,100);
+  //bollicine
+  var pallineNumber = random(100, 900);
   for (var i = 0; i < pallineNumber; i++) {
-    var myPalline = new Palline(600,350, 10);
+    var myPalline = new Palline(600, 350, 10);
     myPalline.diameter = 10;
     myPalline.speed = random(1, 3);
-    // myPalline.color = color(random(255), random(255), random(255));
+    myPalline.color = color(random(249, 255), random(235, 251), random(39, 231));
     palline.push(myPalline);
   }
-
+  //vino
   img = loadImage("wine.png");
-
+  //tappo
   img1 = loadImage("tappo.png");
 
 
@@ -45,14 +44,13 @@ function setup() {
 
 function draw() {
   // put drawing code here
-  background(183, 28, 28);
+  background(244, 67, 54);
 
 
   for (var j = 0; j < palline.length; j++) {
 
     palline[j].saw();
-    // balls[j].color = color(random(255), random(255), random(255));
-    // // balls[j].diameter += 1;
+
     if (mouseIsPressed) {
       palline[j].move();
 
@@ -60,27 +58,42 @@ function draw() {
 
   }
 
-  image(img, -50, height/3);
+  image(img, -50, height / 3);
 
 
-  image(img1, xpos , ypos );
+  image(img1, xpos, ypos);
   if (mouseIsPressed) {
-    Boom();
-
+    boom();
   }
+
+  textFont('Helvetica');
+  textAlign(LEFT);
+  textSize(60);
+  textStyle(BOLD);
+  fill(255, 241, 118, 98);
+  text('Hold the mouse down...', windowWidth / 2, windowHeight / 2 - 100);
+  textSize(60);
+  textStyle(BOLD);
+  fill(255, 241, 118);
+  text('and start the party!', windowWidth / 2, windowHeight / 2 - 40);
+
 
 }
 
-function Boom(){
+function boom() {
+
   xpos = xpos + xspeed * xdirection;
   ypos = ypos + yspeed * ydirection;
 
-  if (xpos > width  || xpos < 0) {
-  xdirection *= -1;
-}
-if (ypos > height  || ypos < 0) {
-  ydirection *= -1;
-}
+  if (xpos > width || xpos < 0) {
+    xdirection *= 1;
+  }
+  if (ypos > height || ypos < 0) {
+    ydirection *= 1;
+  }
+
+
+
 }
 
 function Palline(_x, _y, _diameter) {
@@ -91,8 +104,8 @@ function Palline(_x, _y, _diameter) {
   this.color = 'yellow';
   // this.speed = 12;
 
-  var xDir = random(-1,1);
-  var yDir = random(-1,1);
+  var xDir = random(-1, 1);
+  var yDir = random(-1, 1);
 
 
   this.saw = function() {
@@ -112,4 +125,8 @@ function Palline(_x, _y, _diameter) {
       yDir = yDir * -1;
     }
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
